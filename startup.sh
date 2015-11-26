@@ -8,7 +8,7 @@ fi
 mysql_install_db
 
 echo 'starting mysql service...'
-/usr/sbin/service mysql start
+service mysql start
 
 if [ ! -f /var/lib/mysql/libdata1 ]; then
 	echo 'user configuration in the database...'  
@@ -34,7 +34,10 @@ if [ ! -f /var/lib/mysql/libdata1 ]; then
 	echo "CREATE DATABASE IF NOT EXISTS $BASE_URL" > /createdb.sql
 	mysql < /createdb.sql
 
-	echo "GRANT ALL PRIVILEGES ON $BASE_URL.* TO akeneo_pim@localhost IDENTIFIED BY '$BASE_URL';" > /createdb.sql
+	echo "CREATE USER 'pfay'@'localhost' IDENTIFIED BY 'pfay123'; "; > /createdb.sql
+	mysql < /createdb.sql
+
+	echo "GRANT ALL PRIVILEGES ON $BASE_URL.* TO pfay@localhost IDENTIFIED BY 'pfay123';" > /createdb.sql
 	mysql < /createdb.sql
 	
 else
@@ -47,6 +50,7 @@ cp -f /var/www/html/php.ini /etc/php5/apache2/php.ini
 
 echo 'reboot apache service...' 
 service apache2 restart
+service mysql restart
 
 echo '...end of the startup !' 
 
