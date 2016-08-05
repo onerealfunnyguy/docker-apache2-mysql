@@ -1,0 +1,23 @@
+version: '2'
+services:
+  apache2:
+    build: apache2
+    container_name: apache2
+    volumes:
+      - '/home/pierre/site/decathlon-com/src/:/var/www/html/'
+    environment:
+      BASE_URL: www.decathlon.lan
+    links:
+      - db
+    depends_on:
+      - db
+    ports:
+      - 80:80
+  
+  db: 
+    build: mysql
+    container_name: db
+    volumes:
+      - '/home/pierre/site/mysql/:/var/lib/mysql'
+    ports:
+      - 3306:3306
