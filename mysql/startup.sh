@@ -24,6 +24,8 @@ if [ ! -f /etc/mysql/my.cnf ] ; then
      cp /usr/share/mysql/my-default.cnf /etc/mysql/my.cnf 
 fi 
 
+chmod 777 -R /var/log/mysql/
+
 service mysql restart
 
 if [ ! -f /var/lib/mysql/libdata1 ]; then
