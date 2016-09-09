@@ -18,6 +18,20 @@ services:
     build: mysql
     container_name: db
     volumes:
-      - '/home/pierre/site/mysql/:/var/lib/mysql'
+      - '/home/pierre/site/mysql/:/var/lib/mysql/'
     ports:
       - 3306:3306
+
+  bamboo: 
+    build: bamboo
+    container_name: bamboo
+    volumes:
+      - '/home/pierre/site/bamboo/:/var/atlassian/bamboo/'
+    ports:
+      - 8085:8085
+    links:
+      - db
+      - apache2
+    depends_on:
+      - db
+      - apache2

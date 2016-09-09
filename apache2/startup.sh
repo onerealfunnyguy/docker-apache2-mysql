@@ -9,6 +9,8 @@ cp -f /var/www/html/000-default.conf /etc/apache2/sites-available/000-default.co
 cp -f /var/www/html/php.ini /etc/php5/apache2/php.ini
 cp -f /var/www/html/envvars /etc/apache2/envvars
 cp -f /var/www/html/config.inc.php /usr/share/phpmyadmin
+ln -sf /usr/share/phpmyadmin/ /var/www/html/phpmyadmin
+
 echo 'reboot apache service...' 
 service apache2 restart
 
